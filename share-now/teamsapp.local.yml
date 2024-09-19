@@ -121,12 +121,6 @@ deploy:
       args: install --no-audit
       workingDirectory: bot
 
-  - uses: cli/runDotnetCommand # Run dotnet command
-    with:
-      args: build extensions.csproj -o ./bin --ignore-failed-sources
-      workingDirectory: api
-      execPath: ${{DOTNET_PATH}}
-
   # Generate runtime environment variables for tab
   - uses: file/createOrUpdateEnvironmentFile
     with:
@@ -149,6 +143,7 @@ deploy:
       envs:
         BOT_ID: ${{BOT_ID}}
         BOT_PASSWORD: ${{SECRET_BOT_PASSWORD}}
+        BOT_TYPE: 'MultiTenant'
         SQL_ENDPOINT: ${{SQL_ENDPOINT}}
         SQL_DATABASE_NAME: ${{SQL_DATABASE_NAME}}
         SQL_USER_NAME: ${{SQL_USER_NAME}}
